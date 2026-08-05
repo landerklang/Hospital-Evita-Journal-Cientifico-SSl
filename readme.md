@@ -28,56 +28,56 @@ Desarrollado como proyecto final de la carrera **Desarrollo de Software Multipla
 ---
 
 ##  Estructura del proyecto
-hief-journal/
-├── config/
-│ ├── database.js ← Conexión y configuración de Sequelize
-│ ├── passport.js ← Estrategia de autenticación (passport-local)
-│ └── admin.js ← Configuración de AdminJS (recursos, branding, etc.)
-│
-├── models/
-│ ├── index.js ← Inicializa Sequelize, importa y asocia todos los modelos
-│ ├── User.js
-│ ├── Specialty.js
-│ ├── Article.js
-│ └── ReviewAssignment.js
-│
-├── seeders/
-│ └── seed.js ← Script para crear datos de prueba (admin, especialidades, revisores)
-│
-├── routes/
-│ ├── index.js ← Ruta principal (página pública)
-│ ├── auth.js ← Login, logout, registro (si corresponde)
-│ ├── author.js ← Rutas del autor: bandeja de envíos, nuevo envío, subir corrección
-│ ├── ddi.js ← Rutas del DDI: listar envíos, asignar revisores, rechazar en escritorio
-│ ├── reviewer.js ← Rutas del revisor: artículos asignados, emitir dictamen
-│ └── publisher.js ← Rutas del encargado de publicación: listar aceptados, publicar
-│
-├── controllers/
-│ ├── authorController.js
-│ ├── ddiController.js
-│ ├── reviewerController.js
-│ └── publisherController.js
-│
-├── middlewares/
-│ ├── auth.js ← Verifica si el usuario está logueado
-│ └── role.js ← Verifica que el usuario tenga un rol específico (admin, ddi, etc.)
-│
-├── views/
-│ ├── layouts/
-│ │ └── main.ejs ← Plantilla base con header, footer, menú según rol
-│ ├── partials/ ← Componentes reutilizables (navbar, alertas)
-│ ├── public/ ← Vistas públicas: listado de artículos publicados, detalle
-│ ├── author/ ← Vistas del autor: formulario de envío, lista de mis envíos
-│ ├── ddi/ ← Vistas del DDI: bandeja de pendientes, asignar revisores
-│ ├── reviewer/ ← Vistas del revisor: artículos asignados, formulario de dictamen
-│ └── publisher/ ← Vistas del publicador: lista de aprobados, previsualizar
-│
-├── public/
-│ ├── css/ ← Estilos personalizados (azul y blanco)
-│ ├── js/ ← JavaScript de frontend (validaciones, confirmaciones)
-│ └── uploads/ ← (Opcional) archivos subidos en desarrollo
-│
-├── app.js ← Punto de entrada: configura Express, middlewares, rutas, AdminJS
-├── package.json
-└── .gitignore
+hief-journal/  
+├── config/  
+│ ├── database.js ← Conexión y configuración de Sequelize  
+│ ├── passport.js ← Estrategia de autenticación (passport-local)  
+│ └── admin.js ← Configuración de AdminJS (recursos, branding, etc.)  
+│  
+├── models/  
+│ ├── index.js ← Inicializa Sequelize, importa y asocia todos los modelos  
+│ ├── User.js  
+│ ├── Specialty.js  
+│ ├── Article.js  
+│ └── ReviewAssignment.js  
+│  
+├── seeders/  
+│ └── seed.js ← Script para crear datos de prueba (admin, especialidades, revisores)  
+│  
+├── routes/  
+│ ├── index.js ← Ruta principal (página pública)  
+│ ├── auth.js ← Login, logout, registro (si corresponde)  
+│ ├── author.js ← Rutas del autor: bandeja de envíos, nuevo envío, subir corrección  
+│ ├── ddi.js ← Rutas del DDI: listar envíos, asignar revisores, rechazar en escritorio  
+│ ├── reviewer.js ← Rutas del revisor: artículos asignados, emitir dictamen  
+│ └── publisher.js ← Rutas del encargado de publicación: listar aceptados, publicar  
+│  
+├── controllers/  
+│ ├── authorController.js  
+│ ├── ddiController.js  
+│ ├── reviewerController.js  
+│ └── publisherController.js  
+│  
+├── middlewares/  
+│ ├── auth.js ← Verifica si el usuario está logueado  
+│ └── role.js ← Verifica que el usuario tenga un rol específico (admin, ddi, etc.)  
+│  
+├── views/  
+│ ├── layouts/  
+│ │ └── main.ejs ← Plantilla base con header, footer, menú según rol  
+│ ├── partials/ ← Componentes reutilizables (navbar, alertas)  
+│ ├── public/ ← Vistas públicas: listado de artículos publicados, detalle  
+│ ├── author/ ← Vistas del autor: formulario de envío, lista de mis envíos  
+│ ├── ddi/ ← Vistas del DDI: bandeja de pendientes, asignar revisores  
+│ ├── reviewer/ ← Vistas del revisor: artículos asignados, formulario de dictamen  
+│ └── publisher/ ← Vistas del publicador: lista de aprobados, previsualizar  
+│  
+├── public/  
+│ ├── css/ ← Estilos personalizados (azul y blanco)  
+│ ├── js/ ← JavaScript de frontend (validaciones, confirmaciones)  
+│ └── uploads/ ← (Opcional) archivos subidos en desarrollo  
+│  
+├── app.js ← Punto de entrada: configura Express, middlewares, rutas, AdminJS  
+├── package.json  
+└── .gitignore  
 
