@@ -1,8 +1,8 @@
-// models/User.js
+// models/user.model.js
 import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
-  const User = sequelize.define("User", {
+  const UserModel = sequelize.define("user", {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -21,11 +21,7 @@ export default (sequelize) => {
       type: DataTypes.ENUM("admin", "author", "ddi", "reviewer", "publisher"),
       defaultValue: "author",
     },
-    specialtyId: {
-      type: DataTypes.INTEGER,
-      allowNull: true, // solo para revisores
-    },
   });
 
-  return User;
+  return UserModel;
 };
