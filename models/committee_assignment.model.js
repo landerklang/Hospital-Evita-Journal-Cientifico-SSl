@@ -12,6 +12,12 @@ export default (sequelize) => {
     }
     // reviewerId y articleId se crean en index.js
   });
+  
+  CommitteeAssignmentModel.associate = (models) => {
+    CommitteeAssignmentModel.belongsTo(models.User, { foreignKey: "reviewerId", as: "reviewer" });
+    CommitteeAssignmentModel.belongsTo(models.Article, { foreignKey: "articleId" });
+    CommitteeAssignmentModel.hasMany(models.Review, { foreignKey: "assignmentId", as: "reviews" });
+  };
 
   return CommitteeAssignmentModel;
 };

@@ -8,12 +8,20 @@ export default (sequelize) => {
       allowNull: false,
     },
     state: {
-      // Estados basados en el flujo: pendiente, en_revision, correcciones, aprobado, rechazado, publicado
+      // Estados: pendiente, en_revision, correcciones, aprobado, rechazado, publicado
       type: DataTypes.STRING,
       defaultValue: "pendiente",
     }
     // responsibleId, specialtyId, y convocationId se crean en index.js
   });
 
+  ArticleModel.associate = (models) => {
+    ArticleModel.belongsTo(models.User, { foreignKey: "responsibleId", as: "author" });
+    ArticleModel.belongsTo(models.Specialty, { foreignKey: "specialtyId", as: "specialty" });
+    ArticleModel.belongsTo(models.Convocation, { foreignKey: "convocationId", as: "convocation" });
+    ArticleModel.hasMany(models.ArticleVersion, { foreignKey: "articleId", as: "versions" });
+    ArticleModel.hasMany(models.CommitteeAssignment, { foreignKey: "articleId", as: "assignments" });
+  };
+  
   return ArticleModel;
 };

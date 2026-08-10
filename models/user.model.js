@@ -22,6 +22,13 @@ export default (sequelize) => {
       defaultValue: "author",
     },
   });
+  
+  UserModel.associate = (models) => {
+    UserModel.belongsTo(models.Specialty, { foreignKey: "specialtyId", as: "specialty" });
+    UserModel.hasMany(models.Article, { foreignKey: "responsibleId", as: "myArticles" });
+    UserModel.hasMany(models.CommitteeAssignment, { foreignKey: "reviewerId", as: "assignments" });
+  };
 
   return UserModel;
 };
+

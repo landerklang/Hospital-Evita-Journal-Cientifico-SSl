@@ -14,5 +14,10 @@ export default (sequelize) => {
     }
   });
 
+  SpecialtyModel.associate = (models) => {
+    SpecialtyModel.hasMany(models.User, { foreignKey: "specialtyId" });
+    SpecialtyModel.hasMany(models.Article, { foreignKey: "specialtyId" });
+  };
+  
   return SpecialtyModel;
 };

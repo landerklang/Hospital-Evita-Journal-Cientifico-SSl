@@ -16,6 +16,11 @@ export default (sequelize) => {
     }
     // assignmentId y versionId se crean en index.js
   });
+  
+  ReviewModel.associate = (models) => {
+    ReviewModel.belongsTo(models.CommitteeAssignment, { foreignKey: "assignmentId" });
+    ReviewModel.belongsTo(models.ArticleVersion, { foreignKey: "versionId" });
+  };
 
   return ReviewModel;
 };

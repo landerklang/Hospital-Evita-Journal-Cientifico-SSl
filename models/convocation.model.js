@@ -20,5 +20,9 @@ export default (sequelize) => {
     }
   });
 
+  ConvocationModel.associate = (models) => {
+    ConvocationModel.hasMany(models.Article, { foreignKey: "convocationId" });
+  }; 
+  
   return ConvocationModel;
 };
