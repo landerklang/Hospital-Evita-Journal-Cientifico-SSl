@@ -1,8 +1,8 @@
 // app.js
 import express from "express";
 import session from "express-session";
-import { start } from "../config/database.js";
-import { sequelize } from "../models/index.js"; // importamos sequelize y los modelos
+import { start } from "./config/database.js";
+import { sequelize } from "./models/index.js"; // importamos sequelize y los modelos
 
 const app = express();
 const PORT = process.env.PORT || 3000;
