@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DashboardLayout from './components/layout/DashboardLayout';
 
 // Componentes "Fantasma" temporales para probar la navegación
-const DashboardHome = () => <h1 className="text-2xl font-bold">Bienvenido al Journal</h1>;
+import DashboardHome from './pages/DashboardHome';
+import BibliotecaHome from './pages/BibliotecaHome';
 const MisArticulos = () => <h1 className="text-2xl font-bold">Mis Artículos Subidos</h1>;
 const Revisiones = () => <h1 className="text-2xl font-bold">Panel de Revisiones del Comité</h1>;
 
@@ -17,7 +18,7 @@ function App() {
     specialtyId: 3
   });
 
-  return (
+return (
     <BrowserRouter>
       <Routes>
         {/* Todas las rutas dentro de DashboardLayout tendrán el menú lateral */}
@@ -25,13 +26,15 @@ function App() {
           
           <Route index element={<DashboardHome />} />
           
-          {/* Rutas accesibles por todos (Autor, Comité, Admin) */}
+          {/* --- Módulo de Leandro (Journal) --- */}
           <Route path="mis-articulos" element={<MisArticulos />} />
           
-          {/* Rutas protegidas (Solo Comité y Admin) */}
           {(user.role === 'COMITE' || user.role === 'ADMIN') && (
             <Route path="revisiones" element={<Revisiones />} />
           )}
+
+          {/* --- Tu Módulo (Biblioteca) --- */}
+          <Route path="biblioteca" element={<BibliotecaHome />} />
 
         </Route>
       </Routes>
