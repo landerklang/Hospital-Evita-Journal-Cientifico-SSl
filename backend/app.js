@@ -3,6 +3,7 @@ import express from "express";
 import session from "express-session";
 import { start } from "./config/database.js";
 import { sequelize } from "./models/index.js"; // importamos sequelize y los modelos
+import { routes } from "./routes/index.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +13,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 // 2. Servir archivos estáticos (CSS, imágenes, JS de front)
+app.use(express.json());
 app.use(express.static("public"));
 
 // 3. Leer datos de formularios
@@ -26,6 +28,7 @@ app.use(
   }),
 );
 
+app.use("/api", routes);
 // 5. Ruta de prueba pública
 app.get("/", (req, res) => {
   res.render("index", { title: "Hospital Interdistrital Evita - Journal" });
