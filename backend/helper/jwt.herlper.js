@@ -1,28 +1,20 @@
 import jwt from "jsonwebtoken";
 
-//Generación y validación de tokens//
-
-export const generateToken = (user) => {
+export const generateToken = async (paylod) => {
   try {
-    const payload = {
-      id: user.id,
-      username: user.username,
-      role: user.role,
-      first_name: user.profile.first_name,
-      last_name: user.profile.last_name,
-    };
-    return jwt.sign(payload, process.env.JWT_SECRET, {
+    return jwt.sign(paylod, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
   } catch (error) {
-    throw new Error("Error al generar el token: " + error);
+    throw new Error("Error al generar token " + error);
   }
 };
 
-export const validateToken = (token) => {
+export const verifyToken = async (token) => {
   try {
-    return jwt.verify(token, process.env.JWT_SECRET);
+    const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
+    return verifiedToken;
   } catch (error) {
-    throw new Error("Error al verificar el token:" + error);
+    throw new Error("Error al verificar el token " + error);
   }
 };

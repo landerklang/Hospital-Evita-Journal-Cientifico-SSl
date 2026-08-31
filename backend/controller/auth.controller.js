@@ -35,29 +35,29 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: "Email y contraseña requeridos" });
-    }
-
     const usuario = await User.findOne({ where: { email } });
     if (!usuario) {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
 
-    const passwordValida = await comparePassword(password, User.password);
+    const passwordValida = await comparePassword(password, usuario.password);
     if (!passwordValida) {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
 
-    const token = jwt.sign(
-      { id: usuario.id, email: usuario.email, role: usuario.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "8h" },
-    );
+    const token = await generateToken({
+      id: usuario.id,
+      username: usuario.username,
+      email: usuario.email,
+      role: usuario.role,
+    });
 
-    res.json({
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60,
+    });
+    res.status(200).json({
       mensaje: "Inicio de sesión exitoso",
-      token,
       usuario: {
         id: usuario.id,
         username: usuario.username,
