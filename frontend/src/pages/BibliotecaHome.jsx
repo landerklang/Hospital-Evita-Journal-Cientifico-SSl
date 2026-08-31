@@ -1,13 +1,39 @@
-import { Search, BookOpen, Download, FileText, Filter } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, BookOpen, Download, FileText, Filter, AlertCircle, Loader2 } from 'lucide-react';
+import { bibliotecaService } from '../services/biblioteca.service';
 
 export default function BibliotecaHome() {
-  // Datos "mock" de la biblioteca
-  const recursos = [
-    { id: 1, titulo: 'Protocolo de Actuación: Dengue 2026', categoria: 'Infectología', tipo: 'PDF', tamaño: '2.4 MB' },
-    { id: 2, titulo: 'Guía Clínica de Hipertensión Arterial', categoria: 'Cardiología', tipo: 'PDF', tamaño: '5.1 MB' },
-    { id: 3, titulo: 'Manual de Procedimientos de Enfermería', categoria: 'Enfermería', tipo: 'PDF', tamaño: '12.0 MB' },
-    { id: 4, titulo: 'Uso Racional de Antibióticos', categoria: 'Farmacia', tipo: 'PDF', tamaño: '1.8 MB' },
-  ];
+  // 1. Definimos los estados del componente
+  const [recursos, setRecursos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+
+  // 2. useEffect ejecuta esto al cargar la pantalla
+  useEffect(() => {
+    const cargarBiblioteca = async () => {
+      try {
+        setCargando(true);
+        // Intentamos llamar a la API real
+        const data = await bibliotecaService.obtenerRecursos();
+        setRecursos(data.data || data); // Depende de cómo estructuren el JSON final
+        setError(null);
+      } catch (err) {
+        console.error("Fallo la API, cargando fallback...", err);
+        setError('No se pudo conectar con el servidor real. Mostrando datos de prueba.');
+        
+        // Fallback: Datos mock para que puedas seguir diseñando
+        setRecursos([
+          { id: 1, titulo: 'Protocolo de Actuación: Dengue 2026', categoria: 'Infectología', tipo: 'PDF', tamaño: '2.4 MB' },
+          { id: 2, titulo: 'Guía Clínica de Hipertensión Arterial', categoria: 'Cardiología', tipo: 'PDF', tamaño: '5.1 MB' },
+          { id: 3, titulo: 'Manual de Procedimientos de Enfermería', categoria: 'Enfermería', tipo: 'PDF', tamaño: '12.0 MB' },
+        ]);
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarBiblioteca();
+  }, []); // El array vacío [] indica que se ejecuta solo una vez al montar
 
   return (
     <div className="space-y-6">
@@ -32,41 +58,47 @@ export default function BibliotecaHome() {
         </div>
       </div>
 
-      {/* Categorías Rápidas */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {['Urgencias', 'Clínica Médica', 'Cirugía', 'Enfermería'].map((cat, i) => (
-          <button key={i} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center gap-2 hover:border-blue-500 hover:text-blue-600 transition-colors text-gray-600">
-            <BookOpen size={24} />
-            <span className="font-medium">{cat}</span>
-          </button>
-        ))}
-      </div>
+      {/* Alerta de Error (Visible solo si falla la API) */}
+      {error && (
+        <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded flex items-center gap-3">
+          <AlertCircle className="text-orange-500" size={24} />
+          <p className="text-sm text-orange-800">{error}</p>
+        </div>
+      )}
 
-      {/* Lista de Recursos Recientes */}
+      {/* Estado de Carga vs Lista de Recursos */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-800">Agregados Recientemente</h2>
+        <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+          <h2 className="text-lg font-semibold text-gray-800">Recursos Disponibles</h2>
         </div>
         
-        <div className="divide-y divide-gray-100">
-          {recursos.map((recurso) => (
-            <div key={recurso.id} className="p-4 hover:bg-gray-50 flex items-center justify-between transition-colors">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-red-50 text-red-500 rounded-lg">
-                  <FileText size={24} />
+        {cargando ? (
+          // Spinner de carga mientras espera al servidor
+          <div className="p-12 flex justify-center items-center text-gray-400">
+            <Loader2 className="animate-spin" size={32} />
+          </div>
+        ) : (
+          // Lista dinámica de PDFs renderizada desde el estado
+          <div className="divide-y divide-gray-100">
+            {recursos.map((recurso) => (
+              <div key={recurso.id} className="p-4 hover:bg-gray-50 flex items-center justify-between transition-colors">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-red-50 text-red-500 rounded-lg">
+                    <FileText size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">{recurso.titulo}</h4>
+                    <p className="text-sm text-gray-500">{recurso.categoria} • {recurso.tamaño}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800">{recurso.titulo}</h4>
-                  <p className="text-sm text-gray-500">{recurso.categoria} • {recurso.tamaño}</p>
-                </div>
+                <button className="text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-colors flex items-center gap-2">
+                  <Download size={20} />
+                  <span className="text-sm font-medium hidden md:inline">Descargar</span>
+                </button>
               </div>
-              <button className="text-blue-600 hover:bg-blue-50 p-2 rounded-lg transition-colors flex items-center gap-2">
-                <Download size={20} />
-                <span className="text-sm font-medium hidden md:inline">Descargar</span>
-              </button>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
