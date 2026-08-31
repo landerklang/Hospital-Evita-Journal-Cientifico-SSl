@@ -3,14 +3,20 @@ import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
 
-// Cambiamos la configuración para que apunte a MySQL
+// 1. Validación estricta: Verificamos que las variables obligatorias existan
+if (!process.env.DB_NAME || !process.env.DB_USER || !process.env.DB_HOST) {
+  console.error("❌ ERROR CRÍTICO: Faltan variables de entorno para la Base de Datos. Revisa tu archivo .env");
+  process.exit(1); // Detiene la ejecución de Node.js
+}
+
+// 2. Configuración usando EXCLUSIVAMENTE variables de entorno
 export const sequelize = new Sequelize(
-  process.env.DB_NAME || 'evita_journal_database', // Nombre de la base de datos
-  process.env.DB_USER || 'root',                  // Usuario (por defecto en XAMPP es root)
-  process.env.DB_PASSWORD || '',                  // Contraseña (por defecto en XAMPP está vacía)
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD, // Importante: Si no usan contraseña, debe dejarse vacío en el .env
   {
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql',                             // ¡Cambio vital!
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
     logging: false,  
   }
 );
