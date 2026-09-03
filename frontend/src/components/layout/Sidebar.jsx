@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Home, FileText, ClipboardCheck, LogOut } from 'lucide-react'; // Íconos
+import { Library } from 'lucide-react';
 
 export default function Sidebar({ user }) {
   if (!user) return null;
 
   return (
     <aside style={{ width: '250px', backgroundColor: '#003366', color: 'white', height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      
+
       {/* Perfil */}
       <div style={{ padding: '20px', borderBottom: '1px solid #0055A4' }}>
         <h2 style={{ margin: 0, fontSize: '1.2rem' }}>{user.username}</h2>
@@ -30,6 +31,10 @@ export default function Sidebar({ user }) {
             <ClipboardCheck size={20} /> Revisiones Pendientes
           </Link>
         )}
+
+        <Link to="/biblioteca" style={{ display: 'flex', gap: '10px', padding: '15px 20px', color: 'white', textDecoration: 'none' }}>
+          <Library size={20} /> Biblioteca Virtual
+        </Link>
       </nav>
 
       {/* Botón de Salir (Abajo de todo) */}
