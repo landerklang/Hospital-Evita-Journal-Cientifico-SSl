@@ -4,9 +4,15 @@ import session from "express-session";
 import { start } from "./config/database.js";
 import { sequelize } from "./models/index.js"; // importamos sequelize y los modelos
 import { routes } from "./routes/index.js";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const corsOpcions = {
+  origin: "http://localhost:5173/",
+  Credential: true,
+};
 
 // 1. Configurar motor de plantillas
 app.set("view engine", "ejs");
@@ -15,6 +21,8 @@ app.set("views", "./views");
 // 2. Servir archivos estáticos (CSS, imágenes, JS de front)
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cookieParser());
+app.use(cors(corsOpcions));
 
 // 3. Leer datos de formularios
 app.use(express.urlencoded({ extended: true }));
