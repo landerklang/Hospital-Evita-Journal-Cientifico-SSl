@@ -10,8 +10,8 @@ import cookieParser from "cookie-parser";
 const app = express();
 const PORT = process.env.PORT || 3000;
 const corsOpcions = {
-  origin: "http://localhost:5173/",
-  Credential: true,
+  origin: "http://localhost:5173",
+  credentials: true,
 };
 
 // 1. Configurar motor de plantillas
