@@ -7,7 +7,7 @@ export const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const { emai, password } = formulario;
+  const { email, password } = formulario;
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -16,21 +16,22 @@ export const Login = () => {
         method: "POST",
         body: JSON.stringify(formulario),
         headers: {
-          "Content-Type": "applicacion/json",
+          "Content-Type": "application/json",
         },
         credentials: "include",
       });
       if (!fetchLogin.ok) {
-        console.log(fetchLogin);
-        console.log("Error al realizar la fetch");
+        const errorData = await fetchLogin.json();
+        console.log("Error", errorData.error);
+        return;
       }
       const data = await fetchLogin.json();
-      localStorage.setItem("token", data.token);
-      alert(data.msg);
+      // localStorage.setItem("token", data.token);
+      alert(data.mensaje);
       console.log(data);
       navigate("/home");
     } catch (error) {
-      console.log("Error interno del server" + error);
+      return console.log("Error interno del server" + error);
     }
   };
 
@@ -42,14 +43,14 @@ export const Login = () => {
           type="text"
           name="email"
           placeholder="milanesaDpollo42@gmail.com"
-          value={formulario.email}
+          value={email}
           onChange={handleChange}
         />
         <input
           type="password"
           name="password"
           placeholder="ingrese su contraseña aqui"
-          value={formulario.password}
+          value={password}
           onChange={handleChange}
         />
         <button>iniciar sesion</button>

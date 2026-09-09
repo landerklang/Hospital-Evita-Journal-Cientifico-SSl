@@ -33,8 +33,8 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const { email, password } = req.body;
     const usuario = await User.findOne({ where: { email } });
     if (!usuario) {
       return res.status(401).json({ error: "Credenciales inválidas" });
@@ -67,6 +67,6 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error interno" });
+    return res.status(500).json({ error: "Error interno" });
   }
 };

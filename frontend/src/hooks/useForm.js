@@ -14,11 +14,10 @@ export const useForm = (inicialValue) => {
     setFormulario(inicialValue);
   };
 
-  const handleSubmit = (event, onLogin) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     handleReset();
     console.log(formulario);
-    onLogin(email);
   };
   return {
     formulario,
