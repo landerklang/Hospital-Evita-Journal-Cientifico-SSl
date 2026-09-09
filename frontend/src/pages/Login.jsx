@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm.js";
 
 export const Login = () => {
-  const { formulario, handleChange, handleReset, handleSubmit } = useForm({
+  const { formulario, handleChange } = useForm({
     email: "",
     password: "",
   });
@@ -12,7 +12,6 @@ export const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      console.log("Enviando:", formulario);
       const fetchLogin = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         body: JSON.stringify(formulario),
@@ -28,14 +27,12 @@ export const Login = () => {
       }
       const data = await fetchLogin.json();
       alert(data.mensaje);
-      console.log(data);
       navigate("/home");
     } catch (error) {
-      return console.log("Error interno del server" + error);
+      console.error("Error interno del server" + error);
     }
   };
 
-  console.log(formulario);
   return (
     <form onSubmit={handleLogin}>
       <div>
