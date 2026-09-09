@@ -42,7 +42,7 @@ export const login = async (req, res) => {
 
     const passwordValida = await comparePassword(password, usuario.password);
     if (!passwordValida) {
-      return res.status(401).json({ error: "Credenciales inválidas" });
+      return res.status(401).json({ error: "contraseña incorrecta" });
     }
 
     const token = await generateToken({

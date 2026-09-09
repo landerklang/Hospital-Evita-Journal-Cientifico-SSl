@@ -12,6 +12,7 @@ export const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
+      console.log("Enviando:", formulario);
       const fetchLogin = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         body: JSON.stringify(formulario),
@@ -26,7 +27,6 @@ export const Login = () => {
         return;
       }
       const data = await fetchLogin.json();
-      // localStorage.setItem("token", data.token);
       alert(data.mensaje);
       console.log(data);
       navigate("/home");
