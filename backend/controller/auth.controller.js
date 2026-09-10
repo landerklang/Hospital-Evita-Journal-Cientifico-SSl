@@ -84,3 +84,7 @@ export const logout = async (req, res) => {
     return res.status(500).json({ error: "Error al cerrar sesión " });
   }
 };
+
+export const verify = async (req, res) => {
+  res.status(200).json({ usuario: req.user });
+};
