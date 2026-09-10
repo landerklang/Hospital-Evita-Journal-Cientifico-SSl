@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export const Login = () => {
   const { formulario, handleChange } = useForm({
     email: "",
     password: "",
   });
+  const { login } = useAuth();
   const navigate = useNavigate();
   const { email, password } = formulario;
 
@@ -26,6 +28,8 @@ export const Login = () => {
         return;
       }
       const data = await fetchLogin.json();
+      login(data.usuario);
+
       alert(data.mensaje);
       navigate("/home");
     } catch (error) {

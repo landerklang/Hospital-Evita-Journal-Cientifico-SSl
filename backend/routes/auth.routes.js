@@ -13,6 +13,5 @@ authRouter.post("/auth/register", register);
 
 authRouter.post("/auth/login", login);
 
+authRouter.get("/auth/verify", authMiddleware, verify);
 authRouter.post("/auth/logout", logout);
-
-authRouter.post("/auth/verify", authMiddleware, verify);

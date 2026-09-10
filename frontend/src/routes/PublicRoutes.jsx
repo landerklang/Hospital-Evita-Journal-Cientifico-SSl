@@ -1,9 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export const PublicRoutes = () => {
-  const isLoggen = localStorage.getItem("token");
+  const { isAuthenticated } = useAuth();
 
-  return !isLoggen ? (
+  return !isAuthenticated ? (
     <>
       <Outlet />
     </>

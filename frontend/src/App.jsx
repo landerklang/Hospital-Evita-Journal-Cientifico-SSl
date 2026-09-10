@@ -6,6 +6,7 @@ import DashboardLayout from "./components/layout/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
 import BibliotecaHome from "./pages/BibliotecaHome";
 import { AppRouter } from "./routes/appRoutes";
+import { AuthProvider } from "./context/AuthContext";
 const MisArticulos = () => (
   <h1 className="text-2xl font-bold">Mis Artículos Subidos</h1>
 );
@@ -24,9 +25,11 @@ function App() {
   });
 
   return (
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </AuthProvider>
   );
   // <Routes>
   //       {/* Todas las rutas dentro de DashboardLayout tendrán el menú lateral */}
