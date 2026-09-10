@@ -70,3 +70,17 @@ export const login = async (req, res) => {
     return res.status(500).json({ error: "Error interno" });
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV,
+      sameSite: "lax",
+    });
+    res.status(200).json("Sesión cerrada correctamente");
+  } catch (error) {
+    console.error("Error en el logout", error);
+    return res.status(500).json({ error: "Error al cerrar sesión " });
+  }
+};
