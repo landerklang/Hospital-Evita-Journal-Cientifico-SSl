@@ -17,18 +17,27 @@ export default (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: {
-      type: DataTypes.ENUM("admin", "author", "ddi", "reviewer", "publisher"),
-      defaultValue: "author",
-    },
   });
-  
+
+  UserModel.belongsTo(models.Role, {
+    foreignKey: "roleId",
+    as: "role",
+  });
+
   UserModel.associate = (models) => {
-    UserModel.belongsTo(models.Specialty, { foreignKey: "specialtyId", as: "specialty" });
-    UserModel.hasMany(models.Article, { foreignKey: "responsibleId", as: "myArticles" });
-    UserModel.hasMany(models.CommitteeAssignment, { foreignKey: "reviewerId", as: "assignments" });
+    UserModel.belongsTo(models.Specialty, {
+      foreignKey: "specialtyId",
+      as: "specialty",
+    });
+    UserModel.hasMany(models.Article, {
+      foreignKey: "responsibleId",
+      as: "myArticles",
+    });
+    UserModel.hasMany(models.CommitteeAssignment, {
+      foreignKey: "reviewerId",
+      as: "assignments",
+    });
   };
 
   return UserModel;
 };
-
