@@ -19,16 +19,16 @@ export default (sequelize) => {
     },
   });
 
-  UserModel.belongsTo(models.Role, {
-    foreignKey: "roleId",
-    as: "role",
-  });
-
   UserModel.associate = (models) => {
     UserModel.belongsTo(models.Specialty, {
       foreignKey: "specialtyId",
       as: "specialty",
     });
+    UserModel.belongsTo(models.Role, {
+      foreignKey: "roleId",
+      as: "role",
+    });
+
     UserModel.hasMany(models.Article, {
       foreignKey: "responsibleId",
       as: "myArticles",
