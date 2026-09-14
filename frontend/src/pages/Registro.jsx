@@ -13,7 +13,7 @@ export const Register = () => {
   const handleregister = async (event) => {
     event.preventDefault();
     try {
-      const fetchLogin = await fetch(
+      const fetchregister = await fetch(
         "http://localhost:3000/api/auth/register",
         {
           method: "POST",
@@ -24,16 +24,15 @@ export const Register = () => {
           credentials: "include",
         },
       );
-      if (!fetchLogin.ok) {
-        const errorData = await fetchLogin.json();
+      if (!fetchregister.ok) {
+        const errorData = await fetchregister.json();
         console.log("Error", errorData.error);
         return;
       }
-      const data = await fetchLogin.json();
-      login(data.usuario);
+      const data = await fetchregister.json();
 
       alert(data.mensaje);
-      navigate("/login");
+      navigate("/home");
     } catch (error) {
       console.error("Error interno del server" + error);
     }
@@ -60,8 +59,16 @@ export const Register = () => {
           name="email"
           placeholder="ingrese el correo aqui"
           value={formulario.email}
+          onChange={handleChange}
         />
-        <input type="text" />
+        <input
+          type="text"
+          name="role"
+          value={formulario.role}
+          onChange={handleChange}
+        />
+
+        <button>iniciar sesion</button>
       </div>
     </form>
   );

@@ -3,6 +3,7 @@ import { Login } from "../pages/Login.jsx";
 import { PublicRoutes } from "./PublicRoutes.jsx";
 import { PrivateRoutes } from "./PrivateRoutes.jsx";
 import DashboardHome from "../pages/DashboardHome.jsx";
+import { Register } from "../pages/Registro.jsx";
 
 const MisArticulos = () => (
   <h1 className="text-2xl font-bold">Mis Artículos Subidos</h1>
@@ -17,6 +18,7 @@ export const AppRouter = () => {
         <Route path="/login" element={<Login />} />
       </Route>
       <Route element={<PrivateRoutes />}>
+        <Route path="/registro" element={<Register />} />
         <Route path="/home" element={<DashboardHome />}></Route>
         <Route path="mis-articulos" element={<MisArticulos />} />
         <Route path="revisiones" element={<Revisiones />} />{" "}

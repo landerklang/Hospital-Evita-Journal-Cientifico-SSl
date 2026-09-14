@@ -1,7 +1,7 @@
 import { Clock, CheckCircle, BellRing, Users } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { LogoutButton } from "../components/layout/LogoutButton";
-LogoutButton;
+import { Link } from "react-router-dom";
 
 export default function DashboardHome() {
   // Datos "mock" temporales. Cuando Lautaro termine el backend,
@@ -85,6 +85,7 @@ export default function DashboardHome() {
           </button>
         </div>
         <LogoutButton />
+        <Link to="/registro">Registrarte</Link>
       </div>
     </div>
   );
