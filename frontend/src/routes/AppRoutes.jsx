@@ -16,9 +16,9 @@ export const AppRouter = () => {
     <Routes>
       <Route element={<PublicRoutes />}>
         <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Register />} />
       </Route>
       <Route element={<PrivateRoutes />}>
-        <Route path="/registro" element={<Register />} />
         <Route path="/home" element={<DashboardHome />}></Route>
         <Route path="mis-articulos" element={<MisArticulos />} />
         <Route path="revisiones" element={<Revisiones />} />{" "}
