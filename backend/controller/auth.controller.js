@@ -1,5 +1,4 @@
 // src/controllers/auth.controller.js
-
 import { User } from "../models/index.js"; // ← Importás el modelo User
 import { comparePassword, hashPassword } from "../helper/bcrypt.helper.js";
 import { generateToken } from "../helper/jwt.herlper.js";
