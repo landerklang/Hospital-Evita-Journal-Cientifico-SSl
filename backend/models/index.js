@@ -7,6 +7,7 @@ import ArticleModelInit from "./article.model.js";
 import ArticleVersionModelInit from "./article_version.model.js";
 import CommitteeAssignmentModelInit from "./committee_assignment.model.js";
 import ReviewModelInit from "./review.model.js";
+import RoleModelInit from "./role.model.js";
 
 // 1. Inicializamos todos los modelos y los guardamos en un objeto "db"
 const db = {
@@ -16,7 +17,8 @@ const db = {
   Article: ArticleModelInit(sequelize),
   ArticleVersion: ArticleVersionModelInit(sequelize),
   CommitteeAssignment: CommitteeAssignmentModelInit(sequelize),
-  Review: ReviewModelInit(sequelize)
+  Review: ReviewModelInit(sequelize),
+  Role: RoleModelInit(sequelize),
 };
 
 // 2. Iteramos sobre el objeto para ejecutar las funciones "associate"
@@ -27,15 +29,25 @@ Object.keys(db).forEach((modelName) => {
 });
 
 // 3. Exportación explícita de los modelos con sequelize para facilitar su importación
-const { User, Specialty, Convocation, Article, ArticleVersion, CommitteeAssignment, Review } = db;
+const {
+  User,
+  Specialty,
+  Convocation,
+  Article,
+  ArticleVersion,
+  CommitteeAssignment,
+  Review,
+  Role,
+} = db;
 
-export { 
-  sequelize, 
-  User, 
-  Specialty, 
-  Convocation, 
-  Article, 
-  ArticleVersion, 
-  CommitteeAssignment, 
-  Review 
+export {
+  sequelize,
+  User,
+  Specialty,
+  Convocation,
+  Article,
+  ArticleVersion,
+  CommitteeAssignment,
+  Review,
+  Role,
 };
